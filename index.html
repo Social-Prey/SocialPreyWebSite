@@ -30,9 +30,12 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; base-uri 'self';">
 
 <!--
-  Legacy JS frame-buster (defense-in-depth only). Real clickjacking protection comes
-  from the X-Frame-Options / frame-ancestors HTTP headers set in vercel.json, since
-  frame-ancestors cannot be delivered via a meta tag per the CSP spec.
+  JS frame-buster: this is the ONLY clickjacking defense available on GitHub Pages.
+  Real protection is normally the X-Frame-Options / CSP frame-ancestors HTTP headers,
+  but GitHub Pages is static-only hosting with no way to set custom response headers,
+  and frame-ancestors cannot be delivered via a meta tag per the CSP spec. If strict
+  header-based protection matters, a host with header config (Cloudflare Pages,
+  Netlify, Vercel) would be needed instead.
 -->
 <script>if (window.top !== window.self) { window.top.location = window.self.location; }</script>
 

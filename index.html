@@ -6,6 +6,36 @@
 <title>Social Prey | Human Risk Management for Small Business Cybersecurity</title>
 <meta name="description" content="Social Prey delivers done-for-you phishing simulations, security awareness training, policy management, and dark web monitoring for small businesses.">
 
+<!-- Open Graph / social sharing. og:url assumes the socialprey.com domain used elsewhere on the site -- update if the final domain differs. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Social Prey | Human Risk Management for Small Business Cybersecurity">
+<meta property="og:description" content="Done-for-you phishing simulations, security awareness training, policy management, and dark web monitoring for small businesses.">
+<meta property="og:url" content="https://www.socialprey.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Social Prey | Human Risk Management for Small Business Cybersecurity">
+<meta name="twitter:description" content="Done-for-you phishing simulations, security awareness training, policy management, and dark web monitoring for small businesses.">
+
+<!-- Favicon: shield emoji as a temporary mark, matches the hero card icon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E">
+
+<!--
+  CSP note: this file relies on an inline <style> block, inline style="" attributes,
+  and an inline <script> block throughout (no nonces/hashes), so 'unsafe-inline' is
+  required for style-src/script-src below -- a truly strict CSP would need those
+  extracted into external files with nonces. The parts that matter most for actually
+  stopping data exfiltration -- connect-src and form-action -- are locked down to only
+  this origin and formsubmit.co (the service this form actually posts to; the site
+  does not use Formspree).
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; base-uri 'self';">
+
+<!--
+  Legacy JS frame-buster (defense-in-depth only). Real clickjacking protection comes
+  from the X-Frame-Options / frame-ancestors HTTP headers set in vercel.json, since
+  frame-ancestors cannot be delivered via a meta tag per the CSP spec.
+-->
+<script>if (window.top !== window.self) { window.top.location = window.self.location; }</script>
+
 <!-- Google Fonts: Inter for body/headings, Dancing Script for the logo mark -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Praise&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -468,6 +498,78 @@
     margin-bottom: 4px;
   }
 
+  /* Honeypot: hidden from real users, left for bots to fill in and give themselves away */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ---------- LIVE VALIDATION ---------- */
+  .field input.input-valid,
+  .field-row input.input-valid {
+    border-bottom-color: #2f8f5b;
+  }
+
+  .field input.input-invalid,
+  .field-row input.input-invalid {
+    border-bottom-color: #d64545;
+  }
+
+  /* ---------- SUCCESS CARD ---------- */
+  .success-card {
+    display: none;
+    text-align: center;
+    padding: 20px 0 10px;
+  }
+
+  .success-card.is-visible {
+    display: block;
+  }
+
+  .success-card .success-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    background: #2f8f5b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .success-card h3 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+  }
+
+  .success-card p {
+    margin: 0;
+    color: #5a5a5a;
+    font-size: 0.92rem;
+  }
+
+  .submit-btn .btn-spinner {
+    display: none;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: btn-spin 0.7s linear infinite;
+    vertical-align: -2px;
+  }
+
+  .submit-btn.is-loading .btn-spinner { display: inline-block; }
+
+  @keyframes btn-spin {
+    to { transform: rotate(360deg); }
+  }
+
   /* ---------- FOOTER ---------- */
   footer.site-footer {
     position: relative;
@@ -504,8 +606,18 @@
   footer.site-footer a { text-decoration: none; }
 
   footer.site-footer a,
-  footer.site-footer span {
+  footer.site-footer span,
+  footer.site-footer .privacy-note {
     text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  }
+
+  footer.site-footer .privacy-note {
+    position: relative;
+    width: 100%;
+    order: 3;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.85);
+    text-align: center;
   }
 
   /* ---------- RESPONSIVE ---------- */
@@ -697,6 +809,8 @@
       <h2 class="reveal">Contact us</h2>
 
       <form id="contactForm" class="reveal" style="--delay:0.15s" novalidate>
+        <input type="text" name="_honeypot" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
         <div class="field-row">
           <div>
             <label for="firstName">First name *</label>
@@ -745,9 +859,20 @@
           <input type="email" id="contactEmail" name="Email" required>
         </div>
 
-        <button type="submit" class="submit-btn" id="contactSubmitBtn">Submit</button>
+        <button type="submit" class="submit-btn" id="contactSubmitBtn">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span class="btn-label">Submit</span>
+        </button>
         <div class="form-note" id="contactFormNote"></div>
       </form>
+
+      <div class="success-card" id="contactSuccessCard">
+        <div class="success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>
+        </div>
+        <h3>Thanks for reaching out!</h3>
+        <p>We've received your message and will be in touch shortly.</p>
+      </div>
     </div>
   </section>
 
@@ -756,6 +881,7 @@
 <footer class="site-footer">
   <a href="mailto:info@socialprey.com">info@socialprey.com</a>
   <span>Tampa, Florida</span>
+  <span class="privacy-note">We only use the information you submit to respond to your inquiry &mdash; we don't sell or share it, and we don't use tracking cookies.</span>
 </footer>
 
 <script>
@@ -829,13 +955,41 @@
     });
   }
 
+  // ---- Live green/red validation on text + email fields ----
+  function validateField(input) {
+    input.classList.remove("input-valid", "input-invalid");
+    if (!input.value) {
+      if (input.required) { input.classList.add("input-invalid"); }
+      return;
+    }
+    input.classList.add(input.checkValidity() ? "input-valid" : "input-invalid");
+  }
+
+  var liveFields = document.querySelectorAll('#contactForm input[type="text"], #contactForm input[type="email"]');
+  liveFields.forEach(function (input) {
+    input.addEventListener("blur", function () { validateField(input); });
+    input.addEventListener("input", function () {
+      if (input.classList.contains("input-valid") || input.classList.contains("input-invalid")) {
+        validateField(input);
+      }
+    });
+  });
+
   // ---- Contact form ----
   var contactForm = document.getElementById("contactForm");
   var contactNote = document.getElementById("contactFormNote");
   var submitBtn = document.getElementById("contactSubmitBtn");
+  var submitBtnLabel = submitBtn.querySelector(".btn-label");
+  var successCard = document.getElementById("contactSuccessCard");
 
   contactForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    // Honeypot: if this hidden field got filled in, it was a bot -- drop silently.
+    var honeypot = contactForm.querySelector('[name="_honeypot"]');
+    if (honeypot && honeypot.value) {
+      return;
+    }
 
     if (!contactForm.checkValidity()) {
       contactForm.reportValidity();
@@ -843,18 +997,30 @@
     }
 
     submitBtn.disabled = true;
-    setNote(contactNote, "Submitting...", "");
+    submitBtn.classList.add("is-loading");
+    submitBtnLabel.textContent = "Sending...";
+    setNote(contactNote, "", "");
 
-    submitForm(contactForm, { "_subject": "Social Prey - New contact form submission" })
+    submitForm(contactForm, {
+      "_subject": "Social Prey - New contact form submission",
+      "_template": "table",
+      "_autoresponse": "Thanks for reaching out to Social Prey! We've received your message and will be in touch shortly."
+    })
       .then(function () {
-        setNote(contactNote, "Thanks for reaching out! We'll be in touch shortly.", "success");
+        contactForm.hidden = true;
+        successCard.classList.add("is-visible");
         contactForm.reset();
+        liveFields.forEach(function (input) {
+          input.classList.remove("input-valid", "input-invalid");
+        });
       })
       .catch(function () {
         setNote(contactNote, "Something went wrong. Please try again or email info@socialprey.com directly.", "error");
       })
       .finally(function () {
         submitBtn.disabled = false;
+        submitBtn.classList.remove("is-loading");
+        submitBtnLabel.textContent = "Submit";
       });
   });
 })();

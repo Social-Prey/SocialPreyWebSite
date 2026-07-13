@@ -1,2 +1,12 @@
 .claude/
 Praise,Roboto (1)/
+.vercel/
+
+# OS junk files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs / editor swap files
+*.log
+*.swp

@@ -6,11 +6,11 @@
 <title>Social Prey | Human Risk Management for Small Business Cybersecurity</title>
 <meta name="description" content="Social Prey delivers done-for-you phishing simulations, security awareness training, policy management, and dark web monitoring for small businesses.">
 
-<!-- Open Graph / social sharing. og:url assumes the socialprey.com domain used elsewhere on the site -- update if the final domain differs. -->
+<!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Social Prey | Human Risk Management for Small Business Cybersecurity">
 <meta property="og:description" content="Done-for-you phishing simulations, security awareness training, policy management, and dark web monitoring for small businesses.">
-<meta property="og:url" content="https://www.socialprey.com/">
+<meta property="og:url" content="https://socialprey.com/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Social Prey | Human Risk Management for Small Business Cybersecurity">
 <meta name="twitter:description" content="Done-for-you phishing simulations, security awareness training, policy management, and dark web monitoring for small businesses.">
@@ -31,10 +31,12 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formsubmit.co https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://formsubmit.co; base-uri 'self';">
 
 <!--
-  Legacy JS frame-buster (defense-in-depth only). Real clickjacking protection comes
-  from the X-Frame-Options / frame-ancestors HTTP headers set in the _headers file,
-  which Cloudflare Pages applies at the edge -- frame-ancestors cannot be delivered
-  via a meta tag per the CSP spec, hence the separate file.
+  JS frame-buster: this is the ONLY clickjacking defense available on GitHub Pages.
+  Real protection is normally the X-Frame-Options / CSP frame-ancestors HTTP headers,
+  but GitHub Pages is static-only hosting with no way to set custom response headers,
+  and frame-ancestors cannot be delivered via a meta tag per the CSP spec. Deemed an
+  acceptable tradeoff for this site: it's a public lead-gen form with no login/session/
+  funds to protect, so the realistic impact of a clickjacking bypass is low.
 -->
 <script>if (window.top !== window.self) { window.top.location = window.self.location; }</script>
 

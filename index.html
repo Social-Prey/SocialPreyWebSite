@@ -954,6 +954,12 @@
     Object.keys(extraFields || {}).forEach(function (key) {
       data.append(key, extraFields[key]);
     });
+    // Web3Forms treats the presence of this field name as "using their paid
+    // Turnstile integration" and rejects the request unless on a Pro plan --
+    // even though this is our own independent widget, not theirs. Our own
+    // client-side check already gates submission on it being solved, so it's
+    // safe to drop before sending.
+    data.delete("cf-turnstile-response");
 
     var controller = ("AbortController" in window) ? new AbortController() : null;
     var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 15000) : null;

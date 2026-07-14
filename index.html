@@ -954,13 +954,19 @@
       data.append(key, extraFields[key]);
     });
 
+    var controller = ("AbortController" in window) ? new AbortController() : null;
+    var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 15000) : null;
+
     return fetch(FORM_ENDPOINT, {
       method: "POST",
       headers: { "Accept": "application/json" },
-      body: data
+      body: data,
+      signal: controller ? controller.signal : undefined
     }).then(function (res) {
       if (!res.ok) { throw new Error("Request failed with status " + res.status); }
       return res.json();
+    }).finally(function () {
+      if (timeoutId) { clearTimeout(timeoutId); }
     });
   }
 
@@ -1029,8 +1035,11 @@
           input.classList.remove("input-valid", "input-invalid");
         });
       })
-      .catch(function () {
-        setNote(contactNote, "Something went wrong. Please try again or email info@socialprey.com directly.", "error");
+      .catch(function (err) {
+        var message = (err && err.name === "AbortError")
+          ? "This is taking too long. Please try again or email info@socialprey.com directly."
+          : "Something went wrong. Please try again or email info@socialprey.com directly.";
+        setNote(contactNote, message, "error");
         if (window.turnstile) { window.turnstile.reset(); }
       })
       .finally(function () {

@@ -126,15 +126,15 @@
 
   .logo {
     display: block;
-    font-family: 'Praise', cursive;
-    font-size: 9rem;
-    line-height: 0.72;
-    transform: translateY(50px);
-    font-weight: 400;
-    color: #fff;
     text-decoration: none;
-    letter-spacing: 0.5px;
-    text-align: left;
+  }
+
+  .logo img {
+    display: block;
+    height: 110px;
+    width: auto;
+    filter: invert(1);
+    transform: translateY(50px);
   }
 
   /* ---------- HERO ---------- */
@@ -224,6 +224,144 @@
 
   .form-note.success { color: #2f8f5b; }
   .form-note.error { color: #d64545; }
+
+  /* ---------- THREAT STATS ---------- */
+  section.stats {
+    padding: 90px 24px 20px;
+  }
+
+  .stats-intro {
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  .stats-intro h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .stats-intro p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .stat-card {
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+
+  .stat-card .stat-number {
+    display: block;
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .stat-number.blue { color: #3f5fd9; }
+  .stat-number.purple { color: #5a51d6; }
+  .stat-number.green { color: #1f8a5a; }
+  .stat-number.amber { color: #b9791a; }
+
+  .stat-card p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: #3a3a3a;
+  }
+
+  /* ---------- HOW IT WORKS ---------- */
+  section.process {
+    padding: 20px 0 100px;
+  }
+
+  .process-bg {
+    position: relative;
+    margin: 0 24px;
+    border-radius: var(--card-radius);
+    padding: 60px 40px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 70% 100%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 55%),
+      linear-gradient(180deg, #0a1128 0%, #234067 40%, #5a7ea9 75%, #c9d5e2 100%);
+  }
+
+  .process-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 6px 6px;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .process-intro {
+    position: relative;
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  .process-intro h2 {
+    color: #fff;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+  }
+
+  .process-intro p {
+    color: rgba(255,255,255,0.85);
+    margin: 0;
+  }
+
+  .process-steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+
+  .process-step {
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 20px 18px;
+  }
+
+  .process-step .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--bg-black);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .process-step h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .process-step p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #3a3a3a;
+  }
 
   /* ---------- OFFERINGS INTRO ---------- */
   section.offerings-intro {
@@ -400,6 +538,58 @@
   .attr-row p {
     margin: 0;
     color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  /* ---------- TESTIMONIALS ---------- */
+  section.testimonials {
+    padding: 90px 24px;
+  }
+
+  .testimonials-intro {
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  .testimonials-intro h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .testimonials-intro p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .testimonial-card {
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 32px 28px;
+  }
+
+  .testimonial-card blockquote {
+    margin: 0 0 20px;
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .testimonial-card footer {
+    font-size: 0.85rem;
+    color: #5a5a5a;
+  }
+
+  .testimonial-card footer strong {
+    display: block;
+    color: var(--ink);
     font-size: 0.92rem;
   }
 
@@ -630,10 +820,19 @@
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 800px) {
     header.site-header .wrap { padding: 0 20px; }
-    .logo { font-size: 7.2rem; line-height: 0.72; transform: translateY(30px); }
+    .logo img { height: 85px; transform: translateY(30px); }
 
     section.hero { min-height: unset; margin: 0 12px; }
     .hero-inner { padding: 36px 24px; }
+
+    section.stats { padding: 60px 24px 10px; }
+    .stat-grid { grid-template-columns: 1fr; gap: 20px; }
+
+    .process-bg { margin: 0 12px; padding: 40px 24px; }
+    .process-steps { grid-template-columns: 1fr; gap: 20px; }
+
+    section.testimonials { padding: 60px 24px; }
+    .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
     .hero h1 { margin-bottom: 20px; }
     .hero-card {
       position: relative;
@@ -678,7 +877,7 @@
   }
 
   @media (max-width: 420px) {
-    .logo { font-size: 3.2rem; line-height: 0.72; }
+    .logo img { height: 44px; transform: translateY(15px); }
     .hero h1 { font-size: 1.7rem; }
   }
 </style>
@@ -687,7 +886,7 @@
 
 <header class="site-header">
   <div class="wrap">
-    <a href="#top" class="logo">Social Prey</a>
+    <a href="#top" class="logo"><img src="assets/social-prey-logo.png" alt="Social Prey"></a>
   </div>
 </header>
 
@@ -696,7 +895,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
-      <h1 class="reveal">Protecting Your<br>Digital Future Today</h1>
+      <h1 class="reveal">How Quickly Could<br>Your Business Be Breached?</h1>
 
       <div class="hero-card">
         <div class="badge reveal">
@@ -705,6 +904,44 @@
         <p class="reveal" style="--delay:0.1s">One in three employees will click a phishing link without proper training. After twelve months of consistent awareness training, that number drops to one in twenty-five.</p>
         <p class="reveal" style="--delay:0.2s">Social Prey delivers done-for-you human risk management for small businesses &mdash; phishing simulations, security awareness training, policy management, and dark web monitoring &mdash; so your people are prepared before an attacker finds out they aren't.</p>
         <p class="reveal" style="--delay:0.3s; margin-bottom:0;"><strong><a href="#contact">Contact Below</a></strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREAT STATS -->
+  <section class="stats">
+    <div class="wrap">
+      <div class="stats-intro reveal">
+        <div class="eyebrow">The Threat Landscape</div>
+        <h2>Technology alone isn't enough to stop a phishing attack.</h2>
+        <p>Even top-of-the-range endpoint protection can't stop attackers from manipulating your employees into giving away sensitive information.</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card reveal" style="--delay:0s">
+          <span class="stat-number blue">90%</span>
+          <p>of successful data breaches involve phishing.</p>
+        </div>
+        <div class="stat-card reveal" style="--delay:0.08s">
+          <span class="stat-number purple">1/3</span>
+          <p>of phishing emails get past default security mechanisms.</p>
+        </div>
+        <div class="stat-card reveal" style="--delay:0.16s">
+          <span class="stat-number green">68%</span>
+          <p>of phishing sites use HTTPS, making them look legitimate to employees.</p>
+        </div>
+        <div class="stat-card reveal" style="--delay:0.24s">
+          <span class="stat-number amber">34%</span>
+          <p>of data breaches involve internal actors.</p>
+        </div>
+        <div class="stat-card reveal" style="--delay:0.32s">
+          <span class="stat-number blue">72%</span>
+          <p>chance of reducing a breach's business impact with a modest investment in training.</p>
+        </div>
+        <div class="stat-card reveal" style="--delay:0.4s">
+          <span class="stat-number purple">7x</span>
+          <p>average ROI, even from the least effective security awareness training programs.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -765,6 +1002,47 @@
     </div>
   </section>
 
+  <!-- HOW IT WORKS -->
+  <section class="process">
+    <div class="process-bg">
+      <div class="wrap">
+        <div class="process-intro reveal">
+          <div class="eyebrow">How It Works</div>
+          <h2>Here's how we turn your employees into a security asset.</h2>
+          <p>Ongoing, bite-sized training that strengthens your team's core security knowledge, while measuring your organisation's overall human risk through continual phishing assessments, dark web monitoring, and policy communication.</p>
+        </div>
+
+        <div class="process-steps">
+          <div class="process-step reveal" style="--delay:0s">
+            <div class="step-number">1</div>
+            <h3>Evaluate</h3>
+            <p>Identify knowledge gaps, assess phishing vulnerability, and locate exposed credentials on the dark web.</p>
+          </div>
+          <div class="process-step reveal" style="--delay:0.1s">
+            <div class="step-number">2</div>
+            <h3>Educate</h3>
+            <p>Build a security-minded culture with ongoing, user-tailored micro-training.</p>
+          </div>
+          <div class="process-step reveal" style="--delay:0.2s">
+            <div class="step-number">3</div>
+            <h3>Simulate</h3>
+            <p>Run ongoing phishing assessments to track how vulnerability changes over time.</p>
+          </div>
+          <div class="process-step reveal" style="--delay:0.3s">
+            <div class="step-number">4</div>
+            <h3>Communicate</h3>
+            <p>Keep employees current on policy, with trackable e-signature acknowledgment.</p>
+          </div>
+          <div class="process-step reveal" style="--delay:0.4s">
+            <div class="step-number">5</div>
+            <h3>Calculate</h3>
+            <p>Track progress and measure your organisation's human risk at any point in time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- KEY ATTRIBUTES -->
   <section class="attributes">
     <div class="wrap grid2">
@@ -805,6 +1083,34 @@
             <h3>Audit Ready</h3>
             <p>Every engagement produces clear, documented proof of your security awareness program &mdash; the kind regulators, insurers, and auditors actually ask for.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="wrap">
+      <div class="testimonials-intro reveal">
+        <div class="eyebrow">What Clients Say</div>
+        <h2>Trusted by teams who take security seriously.</h2>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card reveal" style="--delay:0s">
+          <blockquote>"The course content is excellent and concise. It is easy to follow and understand but, at the same time, very effective and efficient in it's delivery."</blockquote>
+          <footer>
+            <strong>ICT Director</strong>
+            Construction &middot; 700&lt; Users
+          </footer>
+        </div>
+
+        <div class="testimonial-card reveal" style="--delay:0.1s">
+          <blockquote>"The management metrics are available to assist us in monitoring employee progress and performance against the scheduled courses."</blockquote>
+          <footer>
+            <strong>Director of IT &amp; Transformation</strong>
+            Transportation &middot; 400&lt; Users
+          </footer>
         </div>
       </div>
     </div>

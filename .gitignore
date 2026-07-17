@@ -1,4 +1,7 @@
 .claude/
+.agents/
+skills-lock.json
+playwright-test.png
 Praise,Roboto (1)/
 SocialPreyBranding/
 .vercel/

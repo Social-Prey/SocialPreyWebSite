@@ -48,11 +48,11 @@
   required for style-src/script-src below -- a truly strict CSP would need those
   extracted into external files with nonces. The parts that matter most for actually
   stopping data exfiltration -- connect-src and form-action -- are locked down to only
-  this origin, api.web3forms.com (the service this form actually posts to), and
+  this origin, api.w3forms.com (the service this form actually posts to), and
   challenges.cloudflare.com (required for the Turnstile bot-check widget's script,
   iframe, and verification calls).
 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://api.web3forms.com; base-uri 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.w3forms.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://api.w3forms.com; base-uri 'self';">
 
 <!--
   JS frame-buster: this is the ONLY clickjacking defense available on GitHub Pages.
@@ -571,6 +571,95 @@
     font-size: 0.92rem;
   }
 
+  /* ---------- COMPLIANCE ---------- */
+  section.compliance {
+    padding: 90px 24px;
+  }
+
+  .compliance-intro {
+    max-width: 680px;
+    margin-bottom: 48px;
+  }
+
+  .compliance-intro h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .compliance-intro p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .compliance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .compliance-card {
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 30px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .compliance-card .title-tag {
+    align-self: flex-start;
+    background: var(--bg-black);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 2px;
+    margin: 0 0 16px;
+  }
+
+  .compliance-card p {
+    margin: 0 0 14px;
+    font-size: 0.92rem;
+    color: #3a3a3a;
+  }
+
+  .compliance-card .maps-to {
+    margin: auto 0 0;
+    padding-top: 14px;
+    border-top: 1px solid #e0d9cb;
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  .compliance-card .maps-to strong { font-weight: 700; }
+
+  .compliance-case {
+    margin-top: 28px;
+    background: var(--bg-black-soft);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-left: 3px solid var(--amber-dot);
+    border-radius: 12px;
+    padding: 24px 26px;
+  }
+
+  .compliance-case p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-light);
+  }
+
+  .compliance-source {
+    margin: 24px 0 0;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .compliance-source .disclaimer {
+    display: block;
+    margin-top: 6px;
+  }
+
   /* ---------- TESTIMONIALS ---------- */
   section.testimonials {
     padding: 90px 24px;
@@ -696,10 +785,44 @@
     font-size: 0.92rem;
   }
 
-  .radio-option input[type="radio"] {
+  .radio-option input[type="radio"],
+  .radio-option input[type="checkbox"] {
     width: 17px;
     height: 17px;
+    flex-shrink: 0;
     accent-color: var(--purple);
+  }
+
+  /* When the label wraps to multiple lines, align the box with the first line.
+     Note: `.field label { display:block }` outranks `.radio-option`, so we must
+     restate display:flex here (higher specificity) or align-items is inert. */
+  .radio-option.align-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .radio-option.align-top input[type="checkbox"] { margin: 3px 0 0; }
+
+  .field textarea {
+    width: 100%;
+    border: 1.5px solid #c9c2b2;
+    border-radius: 8px;
+    background: transparent;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    resize: vertical;
+  }
+
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+  }
+
+  .scan-emails {
+    margin-top: 16px;
+    margin-bottom: 0;
   }
 
   .submit-btn {
@@ -805,7 +928,7 @@
     overflow: hidden;
     background:
       linear-gradient(180deg, #0a1128 0%, #1c3a63 35%, #4f74a3 65%, #c7d3e0 100%);
-    padding: 26px 32px;
+    padding: 60px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -847,6 +970,23 @@
     text-align: center;
   }
 
+  /* ---------- LARGE SCREENS: rein in the full-bleed bands ---------- */
+  /* On very wide monitors the edge-to-edge sections (header, hero, offering/
+     process bands, footer) stretch too far while the centered text sections
+     stay at 1180px. Cap the bleed bands and center them so the page reads as
+     one coherent column. Kicks in at 1600px + 2x24px gutter. */
+  @media (min-width: 1648px) {
+    header.site-header .wrap,
+    section.hero,
+    .process-bg,
+    .offerings-bg,
+    footer.site-footer {
+      max-width: 1600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 800px) {
     header.site-header .wrap { padding: 0 20px; }
@@ -860,6 +1000,9 @@
 
     .process-bg { margin: 0 12px; padding: 40px 24px; }
     .process-steps { grid-template-columns: 1fr; gap: 20px; }
+
+    section.compliance { padding: 60px 24px; }
+    .compliance-grid { grid-template-columns: 1fr; gap: 20px; }
 
     section.testimonials { padding: 60px 24px; }
     .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -896,11 +1039,12 @@
     section.contact { padding: 30px 20px 70px; }
     .contact-card { padding: 32px 24px 36px; }
     .field-row { grid-template-columns: 1fr; }
-    .radio-option input[type="radio"] { width: 20px; height: 20px; }
+    .radio-option input[type="radio"],
+    .radio-option input[type="checkbox"] { width: 20px; height: 20px; }
 
     footer.site-footer {
       margin: 0 12px 16px;
-      padding: 20px 24px;
+      padding: 44px 24px;
       justify-content: center;
       text-align: center;
     }
@@ -931,7 +1075,7 @@
         <div class="badge reveal">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
         </div>
-        <p class="reveal" style="--delay:0.1s">One in three employees will click a phishing link without proper training. After twelve months of consistent awareness training, that number drops to one in twenty-five.</p>
+        <p class="reveal" style="--delay:0.1s">One in three employees will click a phishing link without proper training. After twelve months of consistent awareness training, that number drops to about one in twenty-four.</p>
         <p class="reveal" style="--delay:0.2s">Social Prey delivers done-for-you human risk management for small businesses &mdash; phishing simulations, security awareness training, policy management, and dark web monitoring &mdash; so your people are prepared before an attacker finds out they aren't.</p>
         <p class="reveal" style="--delay:0.3s; margin-bottom:0;"><strong><a href="#contact">Contact Below</a></strong></p>
       </div>
@@ -957,16 +1101,16 @@
           <p>of advanced phishing attacks evade leading secure email gateways.</p>
         </div>
         <div class="stat-card reveal" style="--delay:0.16s">
-          <span class="stat-number green">80%</span>
-          <p>of phishing sites now use HTTPS, making them look legitimate to employees.</p>
+          <span class="stat-number green">&gt;90%</span>
+          <p>of phishing sites now use HTTPS &mdash; the padlock icon no longer means a site is safe.</p>
         </div>
         <div class="stat-card reveal" style="--delay:0.24s">
-          <span class="stat-number amber">9%</span>
-          <p>of data breaches involve internal actors.</p>
+          <span class="stat-number amber">21 sec</span>
+          <p>median time for an employee to click a malicious link after opening a phishing email.</p>
         </div>
         <div class="stat-card reveal" style="--delay:0.32s">
-          <span class="stat-number blue">72%</span>
-          <p>chance of reducing a breach's business impact with a modest investment in training.</p>
+          <span class="stat-number blue">70%</span>
+          <p>lower risk of a data breach for organizations that run consistent security awareness training.</p>
         </div>
         <div class="stat-card reveal" style="--delay:0.4s">
           <span class="stat-number purple">7x</span>
@@ -974,7 +1118,7 @@
         </div>
       </div>
 
-      <p class="stats-source reveal" style="--delay:0.48s">Sources: Verizon Data Breach Investigations Report, KnowBe4 Phishing By Industry Benchmarking Report, Ponemon Institute / Proofpoint.</p>
+      <p class="stats-source reveal" style="--delay:0.48s">Sources: Verizon Data Breach Investigations Report; KnowBe4 Phishing By Industry Benchmarking Report / Osterman Research; IRONSCALES; Anti-Phishing Working Group (APWG); Ponemon Institute.</p>
     </div>
   </section>
 
@@ -1148,6 +1292,57 @@
     </div>
   </section>
 
+  <!-- COMPLIANCE -->
+  <section class="compliance">
+    <div class="wrap">
+      <div class="compliance-intro reveal">
+        <div class="eyebrow">Compliance &amp; Liability</div>
+        <h2>For regulated businesses, security training isn't optional.</h2>
+        <p>If you work in healthcare, accounting, or law &mdash; or you carry cyber insurance &mdash; regulators and insurers now expect documented, ongoing security awareness training and phishing testing. Missing records don't just raise your risk. They can void an insurance claim, trigger a penalty, or become evidence in a disciplinary case. Here's what applies to you, and how Social Prey helps you document it.</p>
+      </div>
+
+      <div class="compliance-grid">
+
+        <div class="compliance-card reveal" style="--delay:0s">
+          <span class="title-tag">Cyber Insurance</span>
+          <p>More than 40% of cyber insurance claims were denied in 2024 &mdash; frequently because the security controls attested on the application, including documented security awareness training, weren't actually in place when the incident happened.</p>
+          <p>Underwriters increasingly treat 12+ months of trended phishing-simulation and training records as a rating factor at renewal, and some programs advertise premium discounts of up to 30% for demonstrably low-risk organizations.</p>
+          <div class="maps-to"><strong>How we help:</strong> documented training, phishing-simulation click-rate trends, and remedial-training records you can hand to your carrier.</div>
+        </div>
+
+        <div class="compliance-card reveal" style="--delay:0.1s">
+          <span class="title-tag">Healthcare &middot; HIPAA</span>
+          <p>The HIPAA Security Rule (45 CFR &sect;164.308(a)(5)) requires a security awareness and training program for every workforce member, with records retained for six years. As of January 2026, penalties range from $145 to over $2.19 million per violation.</p>
+          <p>Phishing awareness directly addresses the rule's requirement to protect against malicious software (&sect;164.308(a)(5)(ii)(B)).</p>
+          <div class="maps-to"><strong>How we help:</strong> workforce training, phishing awareness, policy acknowledgment, and six-year, audit-ready records.</div>
+        </div>
+
+        <div class="compliance-card reveal" style="--delay:0.2s">
+          <span class="title-tag">Accounting &middot; FTC Safeguards Rule</span>
+          <p>The FTC classifies tax and accounting firms as "financial institutions" under the Gramm-Leach-Bliley Act. The Safeguards Rule (16 CFR Part 314) requires a Written Information Security Program (WISP) and annual security awareness training for all staff.</p>
+          <p>Civil penalties reach $51,744 per violation (2026, inflation-adjusted), and each undocumented safeguard can count separately.</p>
+          <div class="maps-to"><strong>How we help:</strong> annual training, phishing simulations, policy documentation, and training records that serve as WISP evidence.</div>
+        </div>
+
+        <div class="compliance-card reveal" style="--delay:0.3s">
+          <span class="title-tag">Legal &middot; ABA &amp; State Bar Rules</span>
+          <p>About 40 states (plus DC and Puerto Rico) have adopted the duty of technology competence (ABA Model Rule 1.1, Comment 8), and Rule 1.6(c) requires reasonable safeguards for client information &mdash; including training and documented controls.</p>
+          <p>29% of law firms report having experienced a security breach. A bar can pursue discipline where a firm lacked basic safeguards, even without proven data loss.</p>
+          <div class="maps-to"><strong>How we help:</strong> staff training, phishing testing, policy acknowledgment, and documented proof of reasonable measures.</div>
+        </div>
+
+      </div>
+
+      <div class="compliance-case reveal">
+        <p><strong>A real example:</strong> In 2020, Athens Orthopedic Clinic paid $1.5 million to settle with the HHS Office for Civil Rights after a breach exposed 208,557 patient records. Investigators found systemic failures &mdash; including no risk analysis and no HIPAA training for its workforce.</p>
+      </div>
+
+      <p class="compliance-source reveal">Sources: HHS.gov (Athens Orthopedic resolution agreement; 45 CFR &sect;164.308); Federal Register (2026 HIPAA civil penalty adjustment); FTC.gov (Safeguards Rule, 16 CFR Part 314); American Bar Association (Model Rules 1.1 &amp; 1.6; 2023 Cybersecurity TechReport); and industry cyber-insurance claims analyses (claim-denial and premium figures).
+        <span class="disclaimer">This overview is general information, not legal advice. Consult your own compliance advisor for the obligations that apply to your business.</span>
+      </p>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="contact-card">
@@ -1204,6 +1399,19 @@
         <div class="field">
           <label for="contactEmail">Email *</label>
           <input type="email" id="contactEmail" name="Email" required>
+        </div>
+
+        <div class="field">
+          <label>Free dark web scan</label>
+          <label class="radio-option align-top">
+            <input type="checkbox" name="Free Dark Web Scan" value="Yes - free scan of up to 5 email addresses" id="darkWebScan">
+            Yes &mdash; send me a free dark web scan for up to 5 employee email addresses
+          </label>
+          <div class="field scan-emails" id="scanEmailsWrap" hidden>
+            <label for="scanEmailList">Email addresses to scan (up to 5, one per line)</label>
+            <textarea id="scanEmailList" name="Dark Web Scan Emails" rows="5" placeholder="name@yourcompany.com"></textarea>
+            <p class="required-hint" id="scanEmailHint" style="margin-top:6px;"></p>
+          </div>
         </div>
 
         <div class="cf-turnstile" id="turnstileWidget" data-sitekey="0x4AAAAAAD1RVDL5iHeqU0qN" style="margin-bottom: 16px;"></div>
@@ -1278,9 +1486,9 @@
     revealEls.forEach(function (el) { revealObserver.observe(el); });
   }
 
-  // Web3Forms API endpoint. The destination email is tied to the access_key
+  // W3Forms API endpoint. The destination email is tied to the access_key
   // hidden field in the form itself, not the URL.
-  var FORM_ENDPOINT = "https://api.web3forms.com/submit";
+  var FORM_ENDPOINT = "https://api.w3forms.com/submit";
 
   function setNote(el, message, type) {
     el.textContent = message;
@@ -1292,7 +1500,7 @@
     Object.keys(extraFields || {}).forEach(function (key) {
       data.append(key, extraFields[key]);
     });
-    // Web3Forms treats the presence of this field name as "using their paid
+    // W3Forms treats the presence of this field name as "using their paid
     // Turnstile integration" and rejects the request unless on a Pro plan --
     // even though this is our own independent widget, not theirs. Our own
     // client-side check already gates submission on it being solved, so it's
@@ -1334,6 +1542,33 @@
       }
     });
   });
+
+  // ---- Free dark web scan: reveal the email list only when the box is checked ----
+  var darkWebScan = document.getElementById("darkWebScan");
+  var scanEmailsWrap = document.getElementById("scanEmailsWrap");
+  var scanEmailList = document.getElementById("scanEmailList");
+  var scanEmailHint = document.getElementById("scanEmailHint");
+
+  if (darkWebScan && scanEmailsWrap) {
+    darkWebScan.addEventListener("change", function () {
+      scanEmailsWrap.hidden = !darkWebScan.checked;
+      if (darkWebScan.checked) {
+        scanEmailList.focus();
+      } else {
+        scanEmailList.value = "";
+        if (scanEmailHint) { scanEmailHint.textContent = ""; }
+      }
+    });
+  }
+
+  if (scanEmailList) {
+    scanEmailList.addEventListener("input", function () {
+      var lines = scanEmailList.value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
+      scanEmailHint.textContent = (lines.length > 5)
+        ? "Heads up: only the first 5 addresses will be scanned."
+        : "";
+    });
+  }
 
   // ---- Contact form ----
   var contactForm = document.getElementById("contactForm");

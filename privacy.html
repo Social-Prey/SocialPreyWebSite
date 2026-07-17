@@ -10,7 +10,16 @@
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E">
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; base-uri 'self'; form-action 'none';">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NY0QZVJHFN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NY0QZVJHFN');
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Praise&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -141,7 +150,7 @@
     <h1>Privacy Policy</h1>
     <p class="effective">Last updated: July 17, 2026</p>
 
-    <p class="lead">This policy explains what information Social Prey ("we," "us") collects through this website, how we use it, and who helps us process it. We keep this deliberately plain: we collect only what we need to respond to you, we don't sell your information, and we don't run tracking or advertising cookies.</p>
+    <p class="lead">This policy explains what information Social Prey ("we," "us") collects through this website, how we use it, and who helps us process it. We keep this deliberately plain: we collect only what we need to respond to you, we don't sell your information, and we don't run advertising cookies. We do use Google Analytics to understand site traffic, described below.</p>
 
     <h2>Information we collect</h2>
     <p>We only collect information you choose to submit through our contact form:</p>
@@ -151,7 +160,11 @@
       <li>The service type and business size you select</li>
       <li>If you request a free dark web scan, up to five email addresses you provide for that scan</li>
     </ul>
-    <p>We do not use analytics tools, advertising trackers, or tracking cookies, and we do not build profiles of visitors.</p>
+    <p>We do not use advertising trackers or advertising cookies, and we do not build advertising profiles of visitors.</p>
+
+    <h2>Analytics</h2>
+    <p>We use <strong>Google Analytics (GA4)</strong> to understand overall site traffic &mdash; things like how many people visit, which pages they view, and roughly where visitors are coming from. Google Analytics sets cookies in your browser to do this. We don't use this data to identify you personally, and we don't combine it with the information you submit through our contact form.</p>
+    <p>You can opt out of Google Analytics tracking across all websites using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>, or by using a browser/extension that blocks analytics cookies. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> for how Google handles this data.</p>
 
     <h2>How we use it</h2>
     <ul>
@@ -167,6 +180,7 @@
       <li><strong>Cloudflare Turnstile</strong> provides the bot-check on our form to prevent spam and abuse.</li>
       <li><strong>GitHub Pages</strong> hosts this website.</li>
       <li><strong>Google Fonts</strong> serves the fonts used on this site, which means your browser requests those font files from Google.</li>
+      <li><strong>Google Analytics</strong> measures site traffic, as described above. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</li>
     </ul>
 
     <h2>The free dark web scan</h2>

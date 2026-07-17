@@ -52,7 +52,16 @@
   challenges.cloudflare.com (required for the Turnstile bot-check widget's script,
   iframe, and verification calls).
 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://api.web3forms.com; base-uri 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com https://challenges.cloudflare.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://api.web3forms.com; base-uri 'self';">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NY0QZVJHFN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NY0QZVJHFN');
+</script>
 
 <!--
   JS frame-buster: this is the ONLY clickjacking defense available on GitHub Pages.
@@ -663,6 +672,51 @@
     margin-top: 6px;
   }
 
+  /* ---------- ABOUT / FOUNDER ---------- */
+  section.about {
+    padding: 20px 24px 90px;
+  }
+
+  .about-card {
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: 24px;
+    padding: 44px 48px;
+    max-width: 780px;
+  }
+
+  .about-card h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700;
+    margin: 12px 0 18px;
+  }
+
+  .about-card p {
+    margin: 0 0 16px;
+    color: #3a3a3a;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .about-card p:last-of-type {
+    margin-bottom: 24px;
+  }
+
+  .about-credentials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .credential-tag {
+    background: var(--bg-black);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+
   /* ---------- TESTIMONIALS ---------- */
   section.testimonials {
     padding: 90px 24px;
@@ -1077,6 +1131,9 @@
     section.compliance { padding: 60px 24px; }
     .compliance-grid { grid-template-columns: 1fr; gap: 20px; }
 
+    section.about { padding: 10px 20px 60px; }
+    .about-card { padding: 32px 24px; }
+
     section.testimonials { padding: 60px 24px; }
     .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
     .hero h1 { margin-bottom: 20px; }
@@ -1337,6 +1394,25 @@
     </div>
   </section>
 
+  <!-- ABOUT / FOUNDER -->
+  <section class="about">
+    <div class="wrap">
+      <div class="about-card reveal">
+        <div class="eyebrow">Who's Behind Social Prey</div>
+        <h2>Built by someone who does this for a living.</h2>
+        <p>Social Prey was founded by Justin Medina, a Tampa-based cybersecurity professional and CompTIA Advanced Security Practitioner (CASP+). Justin currently serves as a Cybersecurity Training Manager, where he rebuilt an organization's security training program from the ground up and acts as its sole eMASS instructor supporting federal vulnerability management and Risk Management Framework (RMF) compliance under NIST 800-53.</p>
+        <p>Before that, he served four years in the U.S. Marine Corps as a Satellite Communications Operator/Maintainer, including a 2011 deployment to the Middle East, followed by four years in the Florida Army National Guard as a Signal Officer. Social Prey brings that same rigor &mdash; rooted in real RMF, NIST 800-53, and hands-on security operations experience, not just sales copy &mdash; to small businesses that don't have an in-house security team of their own.</p>
+
+        <div class="about-credentials">
+          <span class="credential-tag">CompTIA CASP+</span>
+          <span class="credential-tag">CompTIA Security+</span>
+          <span class="credential-tag">CompTIA Network+</span>
+          <span class="credential-tag">B.A., University of South Florida</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TESTIMONIALS -->
   <section class="testimonials">
     <div class="wrap">
@@ -1556,7 +1632,7 @@
   <a href="mailto:info@socialprey.com">info@socialprey.com</a>
   <span>Tampa, Florida</span>
   <a href="privacy.html">Privacy Policy</a>
-  <span class="privacy-note">We use the information you submit only to respond to your inquiry. We don't sell it, and we share it only with the service providers that help us run this site and reply to you &mdash; see our <a href="privacy.html">Privacy Policy</a>. We don't use tracking or advertising cookies.</span>
+  <span class="privacy-note">We use the information you submit only to respond to your inquiry. We don't sell it, and we share it only with the service providers that help us run this site and reply to you &mdash; see our <a href="privacy.html">Privacy Policy</a>. We use Google Analytics to understand site traffic; we don't use advertising cookies.</span>
 </footer>
 
 <script>

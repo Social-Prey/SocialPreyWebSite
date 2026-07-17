@@ -715,6 +715,68 @@
     font-size: 0.92rem;
   }
 
+  /* ---------- FAQ ---------- */
+  section.faq {
+    padding: 90px 24px;
+  }
+
+  .faq-intro {
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  .faq-intro h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .faq-list {
+    max-width: 780px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 32px 22px 0;
+    position: relative;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 20px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .faq-item[open] summary::after {
+    content: "\2212";
+  }
+
+  .faq-item p {
+    margin: 0 0 22px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 680px;
+  }
+
   /* ---------- CONTACT ---------- */
   section.contact {
     padding: 40px 24px 110px;
@@ -1351,6 +1413,48 @@
       <p class="compliance-source reveal">Sources: HHS.gov (Athens Orthopedic resolution agreement; 45 CFR &sect;164.308); Federal Register (2026 HIPAA civil penalty adjustment); FTC.gov (Safeguards Rule, 16 CFR Part 314); American Bar Association (Model Rules 1.1 &amp; 1.6; 2023 Cybersecurity TechReport); and industry cyber-insurance claims analyses (claim-denial and premium figures).
         <span class="disclaimer">This overview is general information, not legal advice. Consult your own compliance advisor for the obligations that apply to your business.</span>
       </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap">
+      <div class="faq-intro reveal">
+        <div class="eyebrow">Common Questions</div>
+        <h2>What business owners usually ask us.</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item reveal" style="--delay:0s">
+          <summary>We already have a firewall and antivirus &mdash; why do we need this too?</summary>
+          <p>Endpoint protection defends your network. It doesn't stop an employee from clicking a convincing link or wiring money to a spoofed vendor email &mdash; that's a human decision, not a technical one. Most successful breaches get in through a person, not a firewall gap. Social Prey trains and tests the layer your existing tools can't cover.</p>
+        </details>
+
+        <details class="faq-item reveal" style="--delay:0.08s">
+          <summary>How much time does this take from my team?</summary>
+          <p>Training modules are short by design &mdash; typically 10&ndash;15 minutes, completable on a phone. Phishing simulations run in the background with no scheduled time at all. You get the reporting; your team doesn't need to manage a platform.</p>
+        </details>
+
+        <details class="faq-item reveal" style="--delay:0.16s">
+          <summary>What happens if an employee fails a phishing test?</summary>
+          <p>Nothing punitive. They get immediate, short follow-up training in the moment &mdash; while the mistake is still fresh and the lesson actually sticks. We build programs that improve behavior over time, not ones that shame people into disengaging.</p>
+        </details>
+
+        <details class="faq-item reveal" style="--delay:0.24s">
+          <summary>Do we need our own IT staff to run this?</summary>
+          <p>No. Social Prey is done-for-you &mdash; we handle setup, simulations, training assignment, and reporting. You don't need a dashboard to learn or a platform to administer.</p>
+        </details>
+
+        <details class="faq-item reveal" style="--delay:0.32s">
+          <summary>What's included in the free dark web scan?</summary>
+          <p>We check up to 5 employee email addresses against known data-breach and dark web credential dumps, and tell you which ones turn up exposed passwords or personal data attackers could already be using against you. It's a no-obligation starting point &mdash; no credit card, no commitment.</p>
+        </details>
+
+        <details class="faq-item reveal" style="--delay:0.4s">
+          <summary>How long until we see results?</summary>
+          <p>Untrained employees click phishing links about one in three times. After twelve months of consistent training, that drops to roughly one in twenty-four &mdash; and the improvement is visible in your reporting well before the 12-month mark, typically within the first few simulation cycles.</p>
+        </details>
+      </div>
     </div>
   </section>
 

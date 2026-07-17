@@ -48,11 +48,11 @@
   required for style-src/script-src below -- a truly strict CSP would need those
   extracted into external files with nonces. The parts that matter most for actually
   stopping data exfiltration -- connect-src and form-action -- are locked down to only
-  this origin, api.w3forms.com (the service this form actually posts to), and
+  this origin, api.web3forms.com (the service this form actually posts to), and
   challenges.cloudflare.com (required for the Turnstile bot-check widget's script,
   iframe, and verification calls).
 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.w3forms.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://api.w3forms.com; base-uri 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://api.web3forms.com; base-uri 'self';">
 
 <!--
   JS frame-buster: this is the ONLY clickjacking defense available on GitHub Pages.
@@ -1486,9 +1486,9 @@
     revealEls.forEach(function (el) { revealObserver.observe(el); });
   }
 
-  // W3Forms API endpoint. The destination email is tied to the access_key
+  // Web3Forms API endpoint. The destination email is tied to the access_key
   // hidden field in the form itself, not the URL.
-  var FORM_ENDPOINT = "https://api.w3forms.com/submit";
+  var FORM_ENDPOINT = "https://api.web3forms.com/submit";
 
   function setNote(el, message, type) {
     el.textContent = message;
@@ -1500,7 +1500,7 @@
     Object.keys(extraFields || {}).forEach(function (key) {
       data.append(key, extraFields[key]);
     });
-    // W3Forms treats the presence of this field name as "using their paid
+    // Web3Forms treats the presence of this field name as "using their paid
     // Turnstile integration" and rejects the request unless on a Pro plan --
     // even though this is our own independent widget, not theirs. Our own
     // client-side check already gates submission on it being solved, so it's

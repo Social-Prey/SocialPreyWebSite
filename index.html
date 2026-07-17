@@ -848,6 +848,14 @@
     margin-bottom: 4px;
   }
 
+  .form-privacy {
+    margin: 14px 0 0;
+    font-size: 0.78rem;
+    color: #7a7568;
+  }
+
+  .form-privacy a { color: var(--purple-dark); }
+
   /* Honeypot: hidden from real users, left for bots to fill in and give themselves away */
   .hp-field {
     position: absolute;
@@ -1410,6 +1418,7 @@
           <div class="field scan-emails" id="scanEmailsWrap" hidden>
             <label for="scanEmailList">Email addresses to scan (up to 5, one per line)</label>
             <textarea id="scanEmailList" name="Dark Web Scan Emails" rows="5" placeholder="name@yourcompany.com"></textarea>
+            <p class="required-hint" style="margin-top:6px;">Only add addresses for your own team that you're authorized to submit.</p>
             <p class="required-hint" id="scanEmailHint" style="margin-top:6px;"></p>
           </div>
         </div>
@@ -1421,6 +1430,7 @@
           <span class="btn-label">Submit</span>
         </button>
         <div class="form-note" id="contactFormNote"></div>
+        <p class="form-privacy">We use your details only to respond to your inquiry, and we never sell them. See our <a href="privacy.html">Privacy Policy</a>.</p>
       </form>
 
       <div class="success-card" id="contactSuccessCard">
@@ -1438,7 +1448,8 @@
 <footer class="site-footer">
   <a href="mailto:info@socialprey.com">info@socialprey.com</a>
   <span>Tampa, Florida</span>
-  <span class="privacy-note">We only use the information you submit to respond to your inquiry &mdash; we don't sell or share it, and we don't use tracking cookies.</span>
+  <a href="privacy.html">Privacy Policy</a>
+  <span class="privacy-note">We use the information you submit only to respond to your inquiry. We don't sell it, and we share it only with the service providers that help us run this site and reply to you &mdash; see our <a href="privacy.html">Privacy Policy</a>. We don't use tracking or advertising cookies.</span>
 </footer>
 
 <script>

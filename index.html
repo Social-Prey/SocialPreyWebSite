@@ -66,7 +66,10 @@
 
 <!-- Google Fonts: Inter for body/headings, Dancing Script for the logo mark -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Praise&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Praise&family=Roboto:wght@400;500;700;900&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Praise&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Praise&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"></noscript>
 
 <!-- Cloudflare Turnstile: bot-check widget on the contact form -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -1068,7 +1071,7 @@
 
 <header class="site-header">
   <div class="wrap">
-    <a href="#top" class="logo"><img src="assets/social-prey-logo.png" alt="Social Prey"></a>
+    <a href="#top" class="logo"><img src="assets/social-prey-logo.png" alt="Social Prey" width="996" height="229"></a>
   </div>
 </header>
 

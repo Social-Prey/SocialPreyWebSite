@@ -172,12 +172,25 @@
   }
 
   .sticky-nav-logo {
-    font-family: 'Praise', cursive;
-    font-size: 2.4rem;
-    color: #fff;
+    display: block;
     text-decoration: none;
-    line-height: 1;
     flex-shrink: 0;
+    line-height: 0;
+  }
+
+  .sticky-nav-logo img {
+    display: block;
+    height: 38px;
+    width: auto;
+    filter: invert(1);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .sticky-nav.is-visible .sticky-nav-logo img {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .sticky-nav-links {
@@ -243,11 +256,12 @@
   }
 
   .logo img {
+    --dip: 50px;
     display: block;
     height: 110px;
     width: auto;
     filter: invert(1);
-    transform: translateY(50px);
+    transform: translateY(var(--dip));
   }
 
   /* ---------- HERO ---------- */
@@ -1194,11 +1208,11 @@
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 800px) {
     header.site-header .wrap { padding: 0 20px; }
-    .logo img { height: 105px; transform: translateY(48px); }
+    .logo img { --dip: 48px; height: 105px; transform: translateY(var(--dip)); }
 
     .sticky-nav-links a:not(.sticky-nav-cta) { display: none; }
     .sticky-nav-inner { padding: 12px 20px; }
-    .sticky-nav-logo { font-size: 1.8rem; }
+    .sticky-nav-logo img { height: 28px; }
     .sticky-nav-cta { padding: 8px 16px; font-size: 0.85rem; }
 
     section.hero { min-height: unset; margin: 0 12px; }
@@ -1263,7 +1277,7 @@
   }
 
   @media (max-width: 420px) {
-    .logo img { height: 60px; transform: translateY(27px); }
+    .logo img { --dip: 27px; height: 60px; transform: translateY(var(--dip)); }
     .hero h1 { font-size: 1.7rem; }
   }
 </style>
@@ -1278,7 +1292,7 @@
 
 <nav class="sticky-nav" id="stickyNav">
   <div class="wrap sticky-nav-inner">
-    <a href="#top" class="sticky-nav-logo">Social Prey</a>
+    <a href="#top" class="sticky-nav-logo"><img src="assets/social-prey-logo.png" alt="Social Prey" width="996" height="229" id="navLogoImg"></a>
     <div class="sticky-nav-links">
       <a href="#offerings">Offerings</a>
       <a href="#process">Process</a>
@@ -1744,10 +1758,12 @@
     });
   });
 
-  // ---- Sticky nav visibility + scroll progress bar ----
+  // ---- Sticky nav visibility + scroll progress bar + logo morph ----
   var stickyNav = document.getElementById("stickyNav");
   var scrollProgress = document.getElementById("scrollProgress");
   var heroSection = document.querySelector("section.hero");
+  var bigLogoImg = document.querySelector(".logo img");
+  var bigLogoDip = bigLogoImg ? getComputedStyle(bigLogoImg).getPropertyValue("--dip").trim() || "50px" : "50px";
   var navTicking = false;
 
   function updateOnScroll() {
@@ -1756,6 +1772,14 @@
     if (stickyNav && heroSection) {
       var showAfter = heroSection.offsetTop + 60;
       stickyNav.classList.toggle("is-visible", scrollY > showAfter);
+    }
+
+    if (bigLogoImg && heroSection) {
+      var morphRange = 200;
+      var morphProgress = Math.min(Math.max((scrollY - heroSection.offsetTop) / morphRange, 0), 1);
+      bigLogoImg.style.opacity = String(1 - morphProgress);
+      var scaleVal = 1 - (morphProgress * 0.45);
+      bigLogoImg.style.transform = "translateY(" + bigLogoDip + ") scale(" + scaleVal + ")";
     }
 
     if (scrollProgress) {

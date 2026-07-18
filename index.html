@@ -145,6 +145,83 @@
     }
   }
 
+  /* ---------- STICKY NAV ---------- */
+  .sticky-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(11,11,13,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sticky-nav.is-visible {
+    transform: translateY(0);
+  }
+
+  .sticky-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+  }
+
+  .sticky-nav-logo {
+    font-family: 'Praise', cursive;
+    font-size: 1.7rem;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .sticky-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .sticky-nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .sticky-nav-links a:hover {
+    color: #fff;
+  }
+
+  .sticky-nav-cta {
+    background: var(--purple);
+    color: #fff !important;
+    padding: 9px 20px;
+    border-radius: 999px;
+    transition: background 0.15s ease;
+  }
+
+  .sticky-nav-cta:hover {
+    background: var(--purple-dark);
+  }
+
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--blue-dot), var(--purple), var(--green-dot));
+    z-index: 60;
+    pointer-events: none;
+  }
+
   /* ---------- HEADER ---------- */
   header.site-header {
     position: relative;
@@ -1119,6 +1196,11 @@
     header.site-header .wrap { padding: 0 20px; }
     .logo img { height: 105px; transform: translateY(48px); }
 
+    .sticky-nav-links a:not(.sticky-nav-cta) { display: none; }
+    .sticky-nav-inner { padding: 12px 20px; }
+    .sticky-nav-logo { font-size: 1.4rem; }
+    .sticky-nav-cta { padding: 8px 16px; font-size: 0.85rem; }
+
     section.hero { min-height: unset; margin: 0 12px; }
     .hero-inner { padding: 36px 24px; }
 
@@ -1194,6 +1276,21 @@
   </div>
 </header>
 
+<nav class="sticky-nav" id="stickyNav">
+  <div class="wrap sticky-nav-inner">
+    <a href="#top" class="sticky-nav-logo">Social Prey</a>
+    <div class="sticky-nav-links">
+      <a href="#offerings">Offerings</a>
+      <a href="#process">Process</a>
+      <a href="#compliance">Compliance</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="sticky-nav-cta">Contact Us</a>
+    </div>
+  </div>
+</nav>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <main id="top">
 
   <!-- HERO -->
@@ -1264,7 +1361,7 @@
   </section>
 
   <!-- OFFERINGS CARDS -->
-  <section class="offerings">
+  <section class="offerings" id="offerings">
     <div class="offerings-bg">
       <div class="offer-grid">
 
@@ -1309,7 +1406,7 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section class="process">
+  <section class="process" id="process">
     <div class="process-bg">
       <div class="wrap">
         <div class="process-intro reveal">
@@ -1442,7 +1539,7 @@
   </section>
 
   <!-- COMPLIANCE -->
-  <section class="compliance">
+  <section class="compliance" id="compliance">
     <div class="wrap">
       <div class="compliance-intro reveal">
         <div class="eyebrow">Compliance &amp; Liability</div>
@@ -1493,7 +1590,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="faq">
+  <section class="faq" id="faq">
     <div class="wrap">
       <div class="faq-intro reveal">
         <div class="eyebrow">Common Questions</div>
@@ -1639,6 +1736,38 @@
 (function () {
   "use strict";
 
+  // ---- Sticky nav visibility + scroll progress bar ----
+  var stickyNav = document.getElementById("stickyNav");
+  var scrollProgress = document.getElementById("scrollProgress");
+  var heroSection = document.querySelector("section.hero");
+  var navTicking = false;
+
+  function updateOnScroll() {
+    var scrollY = window.scrollY || window.pageYOffset;
+
+    if (stickyNav && heroSection) {
+      var showAfter = heroSection.offsetTop + heroSection.offsetHeight - 80;
+      stickyNav.classList.toggle("is-visible", scrollY > showAfter);
+    }
+
+    if (scrollProgress) {
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      scrollProgress.style.width = pct + "%";
+    }
+
+    navTicking = false;
+  }
+
+  window.addEventListener("scroll", function () {
+    if (!navTicking) {
+      window.requestAnimationFrame(updateOnScroll);
+      navTicking = true;
+    }
+  }, { passive: true });
+
+  updateOnScroll();
+
   // ---- Align left offer-card cluster so its top meets the bottom of the right cluster ----
   function alignOfferColumns() {
     var rightCol = document.querySelector(".offer-col-right");
@@ -1678,6 +1807,45 @@
     }, { threshold: 0.15, rootMargin: "0px 0px -30% 0px" });
 
     revealEls.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  // ---- Count-up animation for stat numbers ----
+  var statNumbers = document.querySelectorAll(".stat-number");
+
+  function animateCountUp(el) {
+    var match = el.textContent.match(/^([^\d]*)(\d+)(.*)$/);
+    if (!match) { return; }
+    var prefix = match[1];
+    var target = parseInt(match[2], 10);
+    var suffix = match[3];
+    var duration = 1200;
+    var startTime = null;
+
+    function step(timestamp) {
+      if (startTime === null) { startTime = timestamp; }
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(eased * target);
+      el.textContent = prefix + current + suffix;
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    }
+
+    window.requestAnimationFrame(step);
+  }
+
+  if (statNumbers.length && !reduceMotion && "IntersectionObserver" in window) {
+    var statObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCountUp(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(function (el) { statObserver.observe(el); });
   }
 
   // Web3Forms API endpoint. The destination email is tied to the access_key

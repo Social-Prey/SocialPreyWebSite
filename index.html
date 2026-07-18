@@ -228,8 +228,10 @@
     transition: width 0.25s ease;
   }
 
-  .sticky-nav-links a:not(.sticky-nav-cta):hover::after {
-    width: 100%;
+  @media (hover: hover) and (pointer: fine) {
+    .sticky-nav-links a:not(.sticky-nav-cta):hover::after {
+      width: 100%;
+    }
   }
 
   .sticky-nav-cta {
@@ -242,8 +244,13 @@
 
   .sticky-nav-cta:hover {
     background: var(--purple-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 18px rgba(111,102,240,0.4);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sticky-nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 18px rgba(111,102,240,0.4);
+    }
   }
 
   .scroll-progress {
@@ -409,9 +416,11 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
-  .stat-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+  @media (hover: hover) and (pointer: fine) {
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+    }
   }
 
   .stat-card .stat-number {
@@ -612,9 +621,11 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
-  .offer-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+  @media (hover: hover) and (pointer: fine) {
+    .offer-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+    }
   }
 
   .offer-card .icon-badge {
@@ -745,9 +756,11 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
-  .compliance-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+  @media (hover: hover) and (pointer: fine) {
+    .compliance-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+    }
   }
 
   .compliance-card .title-tag {
@@ -883,9 +896,11 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
-  .testimonial-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+  @media (hover: hover) and (pointer: fine) {
+    .testimonial-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+    }
   }
 
   .testimonial-card blockquote {
@@ -1097,8 +1112,13 @@
 
   .submit-btn:hover {
     background: var(--purple-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(111,102,240,0.35);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(111,102,240,0.35);
+    }
   }
 
   .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }

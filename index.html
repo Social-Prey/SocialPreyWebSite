@@ -212,16 +212,38 @@
     color: #fff;
   }
 
+  .sticky-nav-links a:not(.sticky-nav-cta) {
+    position: relative;
+    padding-bottom: 4px;
+  }
+
+  .sticky-nav-links a:not(.sticky-nav-cta)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--purple);
+    transition: width 0.25s ease;
+  }
+
+  .sticky-nav-links a:not(.sticky-nav-cta):hover::after {
+    width: 100%;
+  }
+
   .sticky-nav-cta {
     background: var(--purple);
     color: #fff !important;
     padding: 9px 20px;
     border-radius: 999px;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .sticky-nav-cta:hover {
     background: var(--purple-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 18px rgba(111,102,240,0.4);
   }
 
   .scroll-progress {
@@ -384,6 +406,12 @@
     color: var(--ink);
     border-radius: 12px;
     padding: 28px 24px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 28px rgba(0,0,0,0.35);
   }
 
   .stat-card .stat-number {
@@ -581,6 +609,12 @@
     color: var(--ink);
     border-radius: 4px;
     padding: 20px 22px 24px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .offer-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 28px rgba(0,0,0,0.35);
   }
 
   .offer-card .icon-badge {
@@ -708,6 +742,12 @@
     padding: 30px 28px;
     display: flex;
     flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .compliance-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 28px rgba(0,0,0,0.35);
   }
 
   .compliance-card .title-tag {
@@ -840,6 +880,12 @@
     color: var(--ink);
     border-radius: 12px;
     padding: 32px 28px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 28px rgba(0,0,0,0.35);
   }
 
   .testimonial-card blockquote {
@@ -1046,11 +1092,16 @@
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .submit-btn:hover { background: var(--purple-dark); }
-  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .submit-btn:hover {
+    background: var(--purple-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(111,102,240,0.35);
+  }
+
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
 
   .required-hint {
     font-size: 0.78rem;

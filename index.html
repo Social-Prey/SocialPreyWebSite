@@ -173,7 +173,7 @@
 
   .sticky-nav-logo {
     font-family: 'Praise', cursive;
-    font-size: 1.7rem;
+    font-size: 2.4rem;
     color: #fff;
     text-decoration: none;
     line-height: 1;
@@ -1198,7 +1198,7 @@
 
     .sticky-nav-links a:not(.sticky-nav-cta) { display: none; }
     .sticky-nav-inner { padding: 12px 20px; }
-    .sticky-nav-logo { font-size: 1.4rem; }
+    .sticky-nav-logo { font-size: 1.8rem; }
     .sticky-nav-cta { padding: 8px 16px; font-size: 0.85rem; }
 
     section.hero { min-height: unset; margin: 0 12px; }
@@ -1746,7 +1746,7 @@
     var scrollY = window.scrollY || window.pageYOffset;
 
     if (stickyNav && heroSection) {
-      var showAfter = heroSection.offsetTop + heroSection.offsetHeight - 80;
+      var showAfter = heroSection.offsetTop + 250;
       stickyNav.classList.toggle("is-visible", scrollY > showAfter);
     }
 

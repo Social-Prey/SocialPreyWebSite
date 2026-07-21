@@ -556,7 +556,7 @@
   .process-steps {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     gap: 20px;
   }
 
@@ -1333,6 +1333,24 @@
       max-width: 1600px;
       margin-left: auto;
       margin-right: auto;
+    }
+  }
+
+  /* ---------- INTERMEDIATE: hero-card floats absolutely and h1 reserves a
+     fixed 260px gap for it; between full desktop width and 800px the card
+     narrows (and its text wraps taller) faster than that fixed gap accounts
+     for, so it rides up and overlaps the heading. Stack it early instead. ---------- */
+  @media (max-width: 1300px) and (min-width: 801px) {
+    section.hero { min-height: unset; }
+    .hero h1 { margin-bottom: 20px; }
+    .hero-card {
+      position: relative;
+      top: auto;
+      right: auto;
+      bottom: auto;
+      left: auto;
+      margin-top: 32px;
+      width: 100%;
     }
   }
 
